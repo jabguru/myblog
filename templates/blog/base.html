@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>APEX BLOG</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+	<link rel="icon" href="{% static 'blog/favicon.ico' %}">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'blog/css/styles.css' %}">
+</head>
+<body>
+	<nav>
+		<ul class="main-menu">
+			<a class="logo" href="{% url 'index' %}"><img src="{% static 'blog/images/apex.png' %}" width="70px" height="70px"></a>
+			<li class="hidden push-right menu-active">BLOG</li>
+			<li class="hidden">ABOUT</li>
+			<li class="hidden">SERVICES</li>
+			<li class="hidden">TESTIMONIAL</li>
+			<li class="hidden">CONTACT</li>
+			<input class="hidden search" type="text" name="search" placeholder="Search">
+
+			{% if user.is_authenticated %}
+				<li><p>Welcome, {{user|title}} </p></li>
+				<a href="{% url 'logout' %}" class="menu-margin"><li class="hidden button">LOGOUT</li></a>
+			{% else %}
+				<a href="{% url 'blog:register' %}"><li class="hidden button">REGISTER</li></a>
+				<a href="{% url 'blog:login' %}" class="menu-margin"><li class="hidden button">LOGIN</li></a>
+			{% endif %}
+
+			<i id="toggle-menu" class="collapse bar menu-ico fas fa-bars"></i>
+		</ul>
+		<div id="mobile-menu" class="mobile-hidden mobile-menu">
+			<ul>
+				<li class="menu-active">BLOG</li>
+				<li class="">ABOUT</li>
+				<li class="">SERVICES</li>
+				<li class="">TESTIMONIAL</li>
+				<li class="">CONTACT</li>
+			</ul>
+		</div>
+	</nav>
+	
+	{% block body_block%}
+	{% endblock %}
+
+	<footer>
+
+      <ul class="recent">
+        <p><strong>Recent Posts</strong></p>
+        <li>Google Certified Andriod Development Course</li>
+        <li>Asynchronious Javascript Full Course</li>
+        <li>Full-stack Web development Course</li>
+        <li>IOS Application Development</li>
+        <li>Full-stack Web development with Django</li>
+      </ul>
+
+      <ul class="categories">
+        <p><strong>Categories</strong></p>
+        <li>Web Dev.</li>
+        <li>Mobile Dev.</li>
+        <li>Programming</li>
+        <li>UI/UX Design</li>
+        <li>News</li>
+      </ul>
+
+      <div class="about">
+        <p><strong>About Apex</strong></p>
+        <p class="about-text">Apex is an organization that meets your technological needs. Your satisfaction is our utmost priority.</p>
+        <i class="footer-ico fab fa-twitter"></i>
+        <i class="footer-ico fas fa-globe"></i>
+        <i class="footer-ico fab fa-instagram"></i>
+      </div>
+
+    </footer>
+
+    <div class="copyright">
+    	<p>&copy; 2019 <strong>APEX</strong> All rights reserved. <a href="#" id="arrow-up"><i class="fas fa-long-arrow-alt-up"></i></a></p>
+    </div>
+
+    <script type="text/javascript" src="{% static 'blog/scripts/script.js' %}"></script>
+</body>
+</html>

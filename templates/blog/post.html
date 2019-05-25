@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+	
+	{% extends 'blog/base.html' %}
+
+		{% block body_block %}
+
+		<div class="container">
+			{% load static %}
+
+			<link rel="stylesheet" type="text/css" href="{% static 'blog/css/post.css' %}">
+
+			<content>
+				<div class="post-body">
+					<p><a href="/blog" class="home">Home</a> / Web Dev. / {{ post.title }}</p>
+					<h1 class="post-title">{{ post.title }}</h1>
+					<p class="post-date">{{ post.published }}</p>
+					<hr>
+					<img src="{{ post.featured_image.url }}" width="100%">
+					<p>{{ post.body }}</p>
+				</div>
+				<div class="comments">
+					<h2 class="comments-head">COMMENTS</h2>
+					<p>{{num_of_comments}} Comments:</p>
+					<hr>
+					<div class="post-comment">
+						{% for comment in comments %}
+						<div class="comment-content"> 
+							<p><span class="profile-img">B</span> {{ comment.name }} <span class="comment-time">{{ comment.posted }}</span></p>
+							<hr>
+							<p>{{ comment.body }}</p>
+							<a href="" class="reply">Reply</a>
+						</div>
+						{% endfor %}
+						<div class="new-comment">
+							<p class="comments-head">POST COMMENTS</p>
+							{% if user.is_authenticated %}
+								<form method="post">
+								{{form}}
+								{% csrf_token %}
+								<p><input type="submit" class="button" value="SUBMIT"></p>
+							</form>
+							{% else %}
+								<p>Sorry, <a href="{% url 'blog:login' %}">Login</a> to post a comment.</p>
+								<p>Or <a href="{% url 'blog:register' %}">Register</a> if you don't have an account</p>
+							{% endif %}
+							
+						</div>
+					</div>
+				</div>
+	
+			</content>
+
+			<aside>
+
+				<div class="aside-item">
+					<p class="aside-title">POPULAR POSTS</p>
+					<div class="pop-post">
+						<img class="pop-img" src="{% static 'blog/images/python-django.png' %}">
+						<p class="pop-title">Full-stack Web development with Django.</p>
+					</div>
+					<hr>
+					<div class="pop-post">
+						<img class="pop-img" src="{% static 'blog/images/mobile.png' %}">
+						<p class="pop-title">IOS Application Development.</p>
+					</div>
+					<br>
+					<hr>
+					<div class="pop-post">
+						<img class="pop-img" src="{% static 'blog/images/ui-ux.jpg' %}">
+						<p class="pop-title">Full UI/UX Design Course.</p>
+					</div>
+				</div>
+
+				<br>
+
+				<div class="aside-item cat">
+					<p class="aside-title">CATEGORIES</p>
+					<p class="cat-item">Web Dev.</p>
+					<p class="cat-item">Mobile Dev.</p>
+					<p class="cat-item">Programming</p>
+					<p class="cat-item">UI/UX Design</p>
+					<p class="cat-item">News</p>
+
+				</div>
+
+				<div class="aside-item fbe">
+					<p class="aside-title">FOLLOW BY EMAIL</p>
+					<p>Enter your email to subscribe to this blog and receive notifications of new posts by email.</p>
+					<input class="fbe-email" type="email" name="email" placeholder="Email Address:">
+					<br>
+					<button class="submit">FOLLOW US</button>
+				</div>
+				
+			</aside>
+
+		</div>
+
+		{% endblock %}

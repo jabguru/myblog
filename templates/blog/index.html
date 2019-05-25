@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+ 	{% extends "blog/base.html" %}
+
+ 	{% block body_block %}
+ 		{% load static %}
+ 		<a href="post/{{featured_post.post.id}}">
+			<div class="featured">
+				<p class="featured-article">FEATURED ARTICLE</p>
+				<h1 class="featured-title">{{featured_post}}</h1>
+				<img src="{{featured_post.post.featured_image.url}}" class="featured-image">
+			</div>
+		</a>
+	<ul class="sub-menu">
+		<li class="blog-active">Most Recent <i class="collapse fas fa-caret-down"></i></li>
+		<li class="hidden">Popular</li>
+		<li class="hidden">Web Dev.</li>
+		<li class="hidden">Mobile Dev.</li>
+		<li class="hidden">Programming</li>
+		<li class="hidden">UI/UX Design</li>
+		<li class="hidden">News</li>
+		{% if user.is_authenticated %}
+			<a href="{% url 'blog:create_post' %}" class="push-right menu-margin"><li class="hidden button">CREATE POST</li></a>
+		{% endif %}
+		
+	</ul>
+	<div class="posts-container">
+        {% for post in posts %}
+		<div class="post">
+			<a href="post/{{post.id}}">
+				<img class="post-img" src="{{ post.featured_image.url }}" alt="FEATURED-IMAGE">
+				<div class="post-text">
+					<p class="cat">{{ post.category.name }}</p>
+					<p class="post-title">{{post.title}}</p>
+				</div>
+			</a>
+			<hr>
+			<p><span class="post-date">{{ post.published }}</span> | {{ post.author }}</p>
+		</div>
+        {% endfor %}
+
+	</div>
+	<div class="pagination">
+		<span class="step-links">
+			{% if posts.has_other_pages %}
+			<ul class="pagination">
+				{% if posts.has_previous %}
+				<li><a href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+				{% else %}
+				<li class="disabled"><span>&laquo;</span></li>
+				{% endif %}
+				{% for i in posts.paginator.page_range %}
+				{% if posts.number == i %}
+					<li class="active"><span>{{ i }}</span></span></li>
+				{% else %}
+					<li><a href="?page={{ i }}">{{ i }}</a></li>
+				{% endif %}
+				{% endfor %}
+				{% if posts.has_next %}
+				<li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+				{% else %}
+				<li class="disabled"><span>&raquo;</span></li>
+				{% endif %}
+			</ul>
+			{% endif %}
+		</span>
+	</div>
+ 	{% endblock %}

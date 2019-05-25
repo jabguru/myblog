@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+
+{% block body_block %}
+	<div class="pages-container">
+		{% if post_created %}
+		
+			<h1>POST CREATED SUCCESSFULLY!</h1>
+		{% else %}
+			<h1>CREATE NEW POST</h1>
+
+			<form enctype="multipart/form-data" method="POST">
+				{% csrf_token %}
+				{{post_form.as_p}}
+
+				<input type="submit" class="button" value="CREATE">
+
+			</form>
+		{% endif %}
+	
+	</div>
+{% endblock body_block %}
