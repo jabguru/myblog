@@ -33,12 +33,14 @@ def user_logout(request):
 
 def post(request, post_id):
 	post = Post.objects.get(id=post_id)
-	featured_posts = Post.objects.filter(is_featured=True)
+	featured_posts = Post.objects.filter(is_featured=True).order_by('-published')
 
 	form = CommentForm()
 
 	comments = post.comments.all()
 	num_of_comments = len(comments)
+
+	active_comments = post.comments.filter(active=True)
 
 	if request.method == 'POST':
 		form = CommentForm(request.POST)
@@ -50,8 +52,7 @@ def post(request, post_id):
 			comment.save()
 
 
-	return render(request, 'blog/post.html', {'post': post, 'featured_posts': featured_posts, 'comments': comments, 
-		'num_of_comments': num_of_comments, 'form': form, })
+	return render(request, 'blog/post.html', {'post': post, 'featured_posts': featured_posts, 'comments': comments, 'num_of_comments': num_of_comments, 'active_comments': active_comments, 'form': form, })
 
 @login_required
 def create_post(request):

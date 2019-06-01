@@ -23,7 +23,7 @@
 					<p>{{num_of_comments}} Comments:</p>
 					<hr>
 					<div class="post-comment">
-						{% for comment in comments %}
+						{% for comment in active_comments %}
 						<div class="comment-content"> 
 							<p><span class="profile-img">B</span> {{ comment.name }} <span class="comment-time">{{ comment.posted }}</span></p>
 							<hr>
