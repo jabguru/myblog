@@ -21,6 +21,7 @@
 			<input class="hidden search" type="text" name="search" placeholder="Search">
 
 			{% if user.is_authenticated %}
+				<a href="{% url 'blog:profile' %}"><li><img class="nav-profile-pic" src='{{user.userprofile.profile_pic.url}}' > </li></a> 
 				<li><p>Welcome, {{user|title}} </p></li>
 				<a href="{% url 'logout' %}" class="menu-margin"><li class="hidden button">LOGOUT</li></a>
 			{% else %}

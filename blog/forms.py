@@ -3,17 +3,20 @@ from django.contrib.auth.models import User
 from .models import Comment, UserProfile, Post
 
 class UserForm(forms.ModelForm):
-	username = forms.CharField(widget=forms.TextInput())
-	password = forms.CharField(widget=forms.PasswordInput())
+	username = forms.CharField(label='', widget=forms.TextInput(attrs={"placeholder": "Username:", "class": "input" }))
+	email = forms.CharField(label='', widget=forms.EmailInput(attrs={"placeholder": "Email:", "class": "input" }))
+	password = forms.CharField(label='',widget=forms.PasswordInput(attrs={"placeholder": "Password:", "class": "input" }))
 
 	class Meta:
 		model = User
 		fields = ('username', 'email', 'password')
 
 class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('portfolio_site', 'profile_pic',)
+	portfolio_site = forms.CharField(label='', widget=forms.URLInput(attrs={"placeholder": "Portfolio site:", "class": "input" }))
+	
+	class Meta:
+		model = UserProfile
+		fields = ('portfolio_site', 'profile_pic',)
     
 
 class CommentForm(forms.ModelForm):

@@ -78,6 +78,13 @@ def create_post(request):
 	return render(request, 'blog/createpost.html', {'post_form': post_form, 'post_created': post_created,})
 
 
+def profile(request):
+
+	user = request.user
+
+	return render(request, 'blog/profile.html', {'user': user, })
+
+
 def register(request):
 
 	registered = False
