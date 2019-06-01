@@ -24,7 +24,7 @@ def index(request):
 
 	featured_post = Featured_Post.objects.all()[0]
 
-	return render(request, 'blog/index.html', {'posts': posts, 'featured_post': featured_post})
+	return render(request, 'blog/index.html', {'posts': posts, 'featured_post': featured_post, 'page': page})
 
 @login_required
 def user_logout(request):
