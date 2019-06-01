@@ -33,6 +33,7 @@ def user_logout(request):
 
 def post(request, post_id):
 	post = Post.objects.get(id=post_id)
+	featured_posts = Post.objects.filter(is_featured=True)
 
 	form = CommentForm()
 
@@ -49,7 +50,7 @@ def post(request, post_id):
 			comment.save()
 
 
-	return render(request, 'blog/post.html', {'post': post,'comments': comments, 
+	return render(request, 'blog/post.html', {'post': post, 'featured_posts': featured_posts, 'comments': comments, 
 		'num_of_comments': num_of_comments, 'form': form, })
 
 @login_required

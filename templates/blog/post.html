@@ -53,22 +53,17 @@
 			<aside>
 
 				<div class="aside-item">
-					<p class="aside-title">POPULAR POSTS</p>
-					<div class="pop-post">
-						<img class="pop-img" src="{% static 'blog/images/python-django.png' %}">
-						<p class="pop-title">Full-stack Web development with Django.</p>
-					</div>
-					<hr>
-					<div class="pop-post">
-						<img class="pop-img" src="{% static 'blog/images/mobile.png' %}">
-						<p class="pop-title">IOS Application Development.</p>
-					</div>
-					<br>
-					<hr>
-					<div class="pop-post">
-						<img class="pop-img" src="{% static 'blog/images/ui-ux.jpg' %}">
-						<p class="pop-title">Full UI/UX Design Course.</p>
-					</div>
+					<p class="aside-title">FEATURED POSTS</p>
+					
+					
+					{% for post in featured_posts %}
+						<div class="pop-post">
+							<img class="pop-img" src="{{post.featured_image.url}}">
+							<p class="pop-title"><a href="../{{post.id}}"> {{post.title}}</a></p>
+						</div>
+						<hr>		
+					{% endfor %}
+						
 				</div>
 
 				<br>
