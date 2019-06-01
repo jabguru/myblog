@@ -77,7 +77,7 @@ def create_post(request):
 		post_form = NewPostForm
 	return render(request, 'blog/createpost.html', {'post_form': post_form, 'post_created': post_created,})
 
-
+@login_required
 def profile(request):
 
 	user = request.user
